@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    <div class="panel-heading">CSV Import</div>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">CSV Import</div>
 
-                    <div class="panel-body">
+                    <div class="card-body">
                         <form class="form-horizontal" method="POST" action="{{ route('import_parse') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
@@ -26,7 +26,7 @@
                             </div>
 
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                                <div class="col-md-6">
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="header" checked> File contains header row?

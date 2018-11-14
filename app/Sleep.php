@@ -21,4 +21,72 @@ class Sleep extends Model
         'tags',
         'notes'
     ];
+
+    /**
+     * Validate fields
+     *
+     * @param string $field
+     * @param string $value
+     * @return string
+     */
+    public function validate($field, $value)
+    {
+        $validatedData = null;
+
+        switch ($field) {
+            case 'tags':
+                $validatedData = $this->getConvertedTag($value);
+                break;
+            default:
+                $validatedData = $this->validateNull($value);
+        }
+
+        return $validatedData;
+    }
+
+    /**
+     * Validate null values
+     *
+     * @param string $value
+     * @return string|null
+     */
+    private function validateNull($value)
+    {
+        return $value == '--' ? null : $value;
+    }
+
+    /**
+     * Convert emoji values to text
+     *
+     * @param $value
+     * @return string
+     */
+    private function getConvertedTag($value)
+    {
+        $elements = explode('♀️', $value);
+        $count = count($elements);
+        $convertedTag = '';
+
+        foreach ($elements as $element) {
+            switch ($element) {
+                case "🍷":
+                    $convertedTag .= 'Drank Alcohol';
+                    break;
+                case "💊":
+                    $convertedTag .= 'Took Sleep Aid';
+                    break;
+                case "🏃‍":
+                    $convertedTag .= 'Worked Out';
+                    break;
+                default:
+                    $convertedTag .= '';
+            }
+            $lastIteration = !(--$count);
+            if (!$lastIteration) {
+                $convertedTag .= ',';
+            }
+        }
+
+        return $convertedTag;
+    }
 }

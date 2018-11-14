@@ -43,7 +43,7 @@ class ImportController extends Controller
                     $csv_header_fields[] = $key;
                 }
             }
-            $csv_data = array_slice($data, 0, 2);
+            $csv_data = array_slice($data, 0, 5);
 
             $csv_data_file = CsvData::create([
                 'csv_filename' => $request->file('csv_file')->getClientOriginalName(),
@@ -71,9 +71,13 @@ class ImportController extends Controller
             $sleep = new Sleep();
             foreach (config('app.db_fields') as $index => $field) {
                 if ($data->csv_header) {
-                    $sleep->$field = $row[$request->fields[$field]];
+                    $field = $request->fields[$field];
+                    $value = $row[$field];
+                    $sleep->$field = $sleep->validate($field, $value);
                 } else {
-                    $sleep->$field = $row[$request->fields[$index]];
+                    $field = $request->fields[$index];
+                    $value = $row[$field];
+                    $sleep->$field = $sleep->validate($field, $value);
                 }
             }
             $sleep->save();

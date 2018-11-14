@@ -1,0 +1,27 @@
+.preview-card {
+    overflow: scroll;
+}
+
+@media (min-width: 1200px) {
+    .preview {
+        max-width: none !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .preview {
+        max-width: none !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .preview {
+        max-width: none !important;
+    }
+}
+
+@media (min-width: 576px) {
+    .preview {
+        max-width: none !important;
+    }
+}
