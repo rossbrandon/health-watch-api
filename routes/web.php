@@ -17,6 +17,7 @@ Route::group(['middleware' => 'auth'],
     function () {
 
         Route::get('/', 'ImportController@index')->name('import');
+        Route::get('/import', 'ImportController@index')->name('import');
         Route::post('/import_parse', 'ImportController@parseImport')->name('import_parse');
         Route::post('/import_process', 'ImportController@processImport')->name('import_process');
 

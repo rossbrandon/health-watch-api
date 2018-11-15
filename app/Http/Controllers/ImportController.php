@@ -74,13 +74,9 @@ class ImportController extends Controller
             $sleep['user_id'] = Auth::id();
             foreach (config('app.db_fields') as $index => $field) {
                 if ($data->csv_header) {
-                    $field = $request->fields[$field];
-                    $value = $row[$field];
-                    $sleep->$field = $sleep->validate($field, $value);
+                    $sleep->$field = $sleep->validate($field, $row[$request->fields[$field]]);
                 } else {
-                    $field = $request->fields[$index];
-                    $value = $row[$field];
-                    $sleep->$field = $sleep->validate($field, $value);
+                    $sleep->$field = $sleep->validate($field, $row[$request->fields[$index]]);
                 }
             }
             $sleep->save();

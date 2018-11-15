@@ -43,6 +43,27 @@ class Sleep extends Model
             case 'tags':
                 $validatedData = $this->getConvertedTag($value);
                 break;
+            case 'duration':
+                $validatedData = $this->convertToTime($value);
+                break;
+            case 'asleep':
+                $validatedData = $this->convertToTime($value);
+                break;
+            case 'time_awake_in_bed':
+                $validatedData = $this->convertToTime($value);
+                break;
+            case 'fell_asleep_in':
+                $validatedData = $this->convertToTime($value);
+                break;
+            case 'quality_sleep':
+                $validatedData = $this->convertToTime($value);
+                break;
+            case 'deep_sleep':
+                $validatedData = $this->convertToTime($value);
+                break;
+            case 'heartrate':
+                $validatedData = $this->convertToInteger($value);
+                break;
             default:
                 $validatedData = $this->validateNull($value);
         }
@@ -59,6 +80,28 @@ class Sleep extends Model
     private function validateNull($value)
     {
         return $value == '--' ? null : $value;
+    }
+
+    /**
+     * Convert a string to a time format
+     *
+     * @param string $value
+     * @return string
+     */
+    private function convertToTime($value)
+    {
+        return date('H:i:s', strtotime($value));
+    }
+
+    /**
+     * Convert string to integer
+     *
+     * @param string $value
+     * @return integer
+     */
+    private function convertToInteger($value)
+    {
+        return (integer) $value;
     }
 
     /**
