@@ -15,6 +15,7 @@ class CreateCsvDataTable extends Migration
     {
         Schema::create('csv_data', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->string('csv_filename');
             $table->boolean('csv_header')->default(0);
             $table->longText('csv_data');

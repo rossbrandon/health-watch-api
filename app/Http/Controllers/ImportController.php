@@ -7,6 +7,7 @@ use App\Sleep;
 use App\CsvData;
 use App\Http\Requests\CsvImportRequest;
 use Maatwebsite\Excel\Facades\Excel;
+use Auth;
 
 class ImportController extends Controller
 {
@@ -46,6 +47,7 @@ class ImportController extends Controller
             $csv_data = array_slice($data, 0, 5);
 
             $csv_data_file = CsvData::create([
+                'user_id' => Auth::id(),
                 'csv_filename' => $request->file('csv_file')->getClientOriginalName(),
                 'csv_header' => $request->has('header'),
                 'csv_data' => json_encode($data)
@@ -69,6 +71,7 @@ class ImportController extends Controller
         $csv_data = json_decode($data->csv_data, true);
         foreach ($csv_data as $row) {
             $sleep = new Sleep();
+            $sleep['user_id'] = Auth::id();
             foreach (config('app.db_fields') as $index => $field) {
                 if ($data->csv_header) {
                     $field = $request->fields[$field];

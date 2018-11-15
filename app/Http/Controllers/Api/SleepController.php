@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller as Controller;
-use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Sleep;
 use Auth;
 
-class SleepController extends Controller
+class SleepController extends ApiController
 {
     /**
      * Display a listing of the resource.
@@ -17,23 +15,23 @@ class SleepController extends Controller
      */
     public function index()
     {
-        return response()->json([
-            'data' => Sleep::all(),
-            'status' => Response::HTTP_OK
-        ]);
+        if ($this->isAdmin()) {
+            $sleepData = Sleep::all();
+        } else {
+            $sleepData = Sleep::where('user_id', Auth::id())->get();
+        }
+        return $this->sendResponse($sleepData, Response::HTTP_OK);
     }
 
     /**
-     * Return the current user's information
+     * Return the current user's sleep information
      *
      * @return \Illuminate\Http\Response
      */
     public function me()
     {
-        return response()->json([
-            'data' => Sleep::find(Auth::id()),
-            'status' => Response::HTTP_OK
-        ]);
+        $sleepData = Sleep::where('user_id', Auth::id())->get();
+        return $this->sendResponse($sleepData, Response::HTTP_OK);
     }
 
     /**
@@ -44,9 +42,13 @@ class SleepController extends Controller
      */
     public function show($id)
     {
-        return response()->json([
-            'data' => Sleep::find($id),
-            'status' => Response::HTTP_OK
-        ]);
+        if ($this->isAdmin()) {
+            $sleepData = Sleep::find($id);
+        } else {
+            $sleepData = Sleep::where('user_id', Auth::id())
+                ->where('id', $id)
+                ->get();
+        }
+        return $this->sendResponse($sleepData, Response::HTTP_OK);
     }
 }

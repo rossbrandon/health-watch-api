@@ -9,6 +9,7 @@ class Sleep extends Model
     protected $table = 'sleep';
 
     public $fillable = [
+        'user_id',
         'in_bed_at',
         'until',
         'duration',
@@ -21,6 +22,11 @@ class Sleep extends Model
         'tags',
         'notes'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
     /**
      * Validate fields

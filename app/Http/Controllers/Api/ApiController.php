@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller as Controller;
+use App\User;
+use Auth;
 
 class ApiController extends Controller
 {
@@ -17,8 +19,10 @@ class ApiController extends Controller
      */
     public function sendResponse($result, $message)
     {
+        $recordCount = is_iterable($result) ? count($result) : 1;
         $response = [
             'success' => true,
+            'record_count' => $recordCount,
             'data' => $result,
             'message' => $message,
         ];
@@ -46,5 +50,15 @@ class ApiController extends Controller
         }
 
         return response()->json($response, $code);
+    }
+
+    /**
+     * Checks if the current user is an admin
+     *
+     * @return mixed
+     */
+    protected function isAdmin()
+    {
+        return User::find(Auth::id())->admin;
     }
 }

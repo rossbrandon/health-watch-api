@@ -13,4 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::resource('sleep', 'Api\SleepController');
+Route::middleware('auth:api')->get('/user',
+    function (Request $request) {
+        return $request->user();
+    }
+);
+
+Route::middleware('auth:api')->group(function () {
+    Route::resource('users', 'Api\UsersController');
+    Route::resource('sleep', 'Api\SleepController');
+
+    Route::get('/me', 'Api\UsersController@me');
+    Route::get('/me/sleep', 'Api\SleepController@me');
+});

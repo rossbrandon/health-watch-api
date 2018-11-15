@@ -15,6 +15,7 @@ class CreateSleepTable extends Migration
     {
         Schema::create('sleep', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id');
             $table->dateTime('in_bed_at');
             $table->dateTime('until');
             $table->string('duration');
