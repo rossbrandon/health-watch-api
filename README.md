@@ -11,10 +11,9 @@ It is designed to parse CSV files from health monitoring applications such as [A
 
 <img src="https://laravel.com/assets/img/components/logo-laravel.svg" height="60px">
 
-* Laravel 5.6
+* Laravel 5.7
 * PHP 7.2
-* MySQL (or database of your choice)
-* ReactJS/Redux (coming soon)
+* MySQL/MariaDB (or database of your choice)
 
 ## Installation
 
@@ -30,7 +29,9 @@ are recommended for local hosting/development
 composer install
 ```
 ```bash
+# If using Valet Plus
 valet db create healthwatch
+
 ```
 ```bash
 php artisan key:generate

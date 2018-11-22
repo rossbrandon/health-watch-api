@@ -35,7 +35,7 @@
         },
         "classmap": [
             "tests/TestCase.php",
-            "tests/Feature/Api/PassportTestCase.php"
+            "tests/Feature/Api/AbstractApiTestCase.php"
         ]
     },
     "extra": {
