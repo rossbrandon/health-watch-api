@@ -33,7 +33,7 @@ composer install
 valet db create healthwatch
 ```
 ```bash
-php artisan key:generatep
+php artisan key:generate
 ```
 ```bash
 php artisan migrate
