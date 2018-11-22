@@ -3,13 +3,10 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
 
 class AuthRouteTest extends TestCase
 {
-    use RefreshDatabase;
-
     /**
      * Test that guests get routed to login
      *
@@ -31,7 +28,7 @@ class AuthRouteTest extends TestCase
      */
     public function testLogin()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->states('user')->create();
 
         $response = $this->actingAs($user)->post('login');
         $this->assertAuthenticated();

@@ -44,10 +44,10 @@ class SleepController extends ApiController
     {
         if ($this->isAdmin()) {
             $sleepData = Sleep::find($id);
+        } else if (Auth::id() == Sleep::find($id)->user_id) {
+            $sleepData = Sleep::find($id);
         } else {
-            $sleepData = Sleep::where('user_id', Auth::id())
-                ->where('id', $id)
-                ->get();
+            return $this->sendError('Forbidden.', [], Response::HTTP_FORBIDDEN);
         }
         return $this->sendResponse($sleepData, Response::HTTP_OK);
     }

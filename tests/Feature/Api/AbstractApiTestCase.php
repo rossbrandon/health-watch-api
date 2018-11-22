@@ -1,17 +1,16 @@
 <?php
 
-use App\User;
-use Laravel\Passport\ClientRepository;
+namespace Tests\Feature\Api;
+
+use DB;
+use DateTime;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Passport\ClientRepository;
 
-class PassportTestCase extends TestCase
+class AbstractApiTestCase extends TestCase
 {
-    use RefreshDatabase;
-
     protected $headers = [];
     protected $scopes = [];
-    protected $user;
     protected $baseUrl = '/';
 
     public function setUp()
@@ -27,10 +26,6 @@ class PassportTestCase extends TestCase
             'created_at' => new DateTime,
             'updated_at' => new DateTime,
         ]);
-        $this->user = factory(User::class)->create();
-        $token = $this->user->createToken('TestToken', $this->scopes)->accessToken;
-        $this->headers['Accept'] = 'application/json';
-        $this->headers['Authorization'] = 'Bearer ' . $token;
     }
 
     public function get($uri, array $headers = [])

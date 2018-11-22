@@ -1,16 +1,12 @@
 <?php
 
-namespace Tests\Feature\Api;
+namespace Tests\Feature\Api\Users;
 
-use \PassportTestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\User;
+use Tests\Feature\Api\AdminApiTestCase;
 
-class UsersApiTest extends PassportTestCase
+class AdminUsersApiTest extends AdminApiTestCase
 {
-    use RefreshDatabase;
-
-    /**
+     /**
      * Test REST API users index
      *
      * @return void
@@ -22,13 +18,14 @@ class UsersApiTest extends PassportTestCase
             'success',
             'record_count',
             'data' => [
-                'id',
-                'name',
-                'email',
-                'admin',
-                'email_verified_at',
-                'created_at',
-                'updated_at'
+                '*'  => [
+                    'id',
+                    'name',
+                    'email',
+                    'admin',
+                    'created_at',
+                    'updated_at'
+                ]
             ],
             'message'
         ]);
@@ -50,7 +47,6 @@ class UsersApiTest extends PassportTestCase
                 'name',
                 'email',
                 'admin',
-                'email_verified_at',
                 'created_at',
                 'updated_at'
             ],
@@ -66,9 +62,7 @@ class UsersApiTest extends PassportTestCase
      */
     public function testShow()
     {
-        $user = factory(User::class)->create();
-
-        $response = $this->get('/api/users/' . $user->id);
+        $response = $this->get('/api/users/' . $this->user->id);
         $response->assertStatus(200)->assertJsonStructure([
             'success',
             'record_count',
@@ -77,7 +71,6 @@ class UsersApiTest extends PassportTestCase
                 'name',
                 'email',
                 'admin',
-                'email_verified_at',
                 'created_at',
                 'updated_at'
             ],
