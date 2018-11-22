@@ -40,8 +40,8 @@ php artisan key:generate
 php artisan migrate
 ```
 ```bash
-php artisan db:seed
+php artisan passport:install
 ```
 ```bash
-php artisan passport:install
+php artisan db:seed
 ```

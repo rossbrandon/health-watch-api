@@ -1,17 +1,14 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Import;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
 
-class HomeTest extends TestCase
+class ImportTest extends TestCase
 {
-    use RefreshDatabase;
-
     /**
-     * Test home controller index route
+     * Test import controller index route
      *
      * @return void
      */
@@ -23,5 +20,15 @@ class HomeTest extends TestCase
         $this->assertAuthenticated();
         $response->assertStatus(200);
         $response->assertViewIs('import');
+    }
+
+    /**
+     * Test import parse processor
+     *
+     * @return void
+     */
+    public function testProcessImport()
+    {
+
     }
 }

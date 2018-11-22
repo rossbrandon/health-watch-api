@@ -20,6 +20,5 @@ Route::group(['middleware' => 'auth'],
         Route::get('/import', 'ImportController@index')->name('import');
         Route::post('/import_parse', 'ImportController@parseImport')->name('import_parse');
         Route::post('/import_process', 'ImportController@processImport')->name('import_process');
-
     }
 );
