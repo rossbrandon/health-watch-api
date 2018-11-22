@@ -12,6 +12,9 @@ before_script:
   - php artisan key:generate
   - php artisan migrate
 
+services:
+  - mysql
+
 script:
   - vendor/bin/phpunit --coverage-clover=coverage.xml
 
