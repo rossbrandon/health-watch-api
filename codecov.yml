@@ -4,6 +4,6 @@ ignore:
 #  - "**/*.py"         # glob accepted
 #  - "[a-z]+/test_.*"  # regexp accepted
 
-- "app/Providers"
-- "app/Http/Middleware"
-- "app/Http/Controllers/Auth"
+  - "app/Providers"
+  - "app/Http/Middleware"
+  - "app/Http/Controllers/Auth"
