@@ -21,14 +21,4 @@ class ImportTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('import');
     }
-
-    /**
-     * Test import parse processor
-     *
-     * @return void
-     */
-    public function testProcessImport()
-    {
-
-    }
 }
