@@ -18,7 +18,7 @@ class UsersController extends ApiController
         if ($this->isAdmin()) {
             $userData = User::all();
         } else {
-            return $this->sendError('Forbidden.', [], Response::HTTP_FORBIDDEN);
+            return $this->sendError('Forbidden.', ['You cannot access all user data'], Response::HTTP_FORBIDDEN);
         }
 
         return $this->sendResponse($userData, Response::HTTP_OK);
@@ -48,7 +48,7 @@ class UsersController extends ApiController
         } else if ($id == Auth::id()) {
             $userData = User::find(Auth::id());
         } else {
-            return $this->sendError('Forbidden.', [], Response::HTTP_FORBIDDEN);
+            return $this->sendError('Forbidden.', ['You cannot access this user\'s data'], Response::HTTP_FORBIDDEN);
         }
         return $this->sendResponse($userData, Response::HTTP_OK);
     }

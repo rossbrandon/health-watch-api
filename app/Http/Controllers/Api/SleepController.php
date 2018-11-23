@@ -47,7 +47,7 @@ class SleepController extends ApiController
         } else if (Auth::id() == Sleep::find($id)->user_id) {
             $sleepData = Sleep::find($id);
         } else {
-            return $this->sendError('Forbidden.', [], Response::HTTP_FORBIDDEN);
+            return $this->sendError('Forbidden.', ['You cannot access this user\'s data'], Response::HTTP_FORBIDDEN);
         }
         return $this->sendResponse($sleepData, Response::HTTP_OK);
     }

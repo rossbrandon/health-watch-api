@@ -43,7 +43,14 @@ class ImportTest extends TestCase
     public function testParseImport()
     {
         $file = Storage::disk('public')->get('test_autosleep.csv');
-        $response = $this->actingAs($this->user)->post('/import_parse', array('csv_file' => $file));
+        $response = $this->actingAs($this->user)->post(
+            '/import_parse',
+            array(
+                '_token' => csrf_token(),
+                'csv_file' => $file,
+                'header' => true
+            )
+        );
         $response->assertViewIs('import');
     }
 }

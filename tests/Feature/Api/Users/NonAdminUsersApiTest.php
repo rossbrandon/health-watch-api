@@ -13,7 +13,7 @@ class NonAdminUsersApiTest extends NonAdminApiTestCase
      */
     public function testShow()
     {
-        $response = $this->get('/api/sleep/' . $this->sleepData->id);
+        $response = $this->get('/api/users/' . $this->adminUser->id);
         $response->assertStatus(403)->assertJsonStructure([
             'success',
             'message'
