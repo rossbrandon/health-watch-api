@@ -12,6 +12,7 @@ before_script:
   - travis_retry composer install --no-interaction --prefer-source --dev
   - php artisan key:generate
   - php artisan migrate
+  - php artisan storage:link
 
 services:
   - mysql
