@@ -119,7 +119,7 @@ class Sleep extends Model
 
         foreach ($emojis as $emoji) {
             switch ($emoji['short_name']) {
-                case "coffee‍":
+                case "coffee":
                     $convertedTag .= 'Drank Coffee';
                     break;
                 case "wine_glass":
@@ -128,7 +128,7 @@ class Sleep extends Model
                 case "pill":
                     $convertedTag .= 'Took Sleep Aid';
                     break;
-                case "woman-running‍":
+                case "woman-running":
                     $convertedTag .= 'Worked Out';
                     break;
                 case "grinning":
@@ -137,10 +137,10 @@ class Sleep extends Model
                 case "hankey":
                     $convertedTag .= 'Bad Day';
                     break;
-                case "sleeping‍":
+                case "sleeping":
                     $convertedTag .= 'Tired';
                     break;
-                case "sneezing_face‍":
+                case "sneezing_face":
                     $convertedTag .= 'Sick Day';
                     break;
                 default:

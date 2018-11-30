@@ -93,10 +93,10 @@ class ImportTest extends TestCase
      */
     public function testSleepImportModel()
     {
-        $this->actingAs($this->user);
         $sleep = factory(Sleep::class)->create();
+        $this->actingAs($sleep->user);
         $sleepImport = new SleepImport();
         $data = $sleepImport->model($sleep->getAttributes());
-        $this->assertEquals($this->user->id, $data->getAttributeValue('user_id'));
+        $this->assertEquals($sleep->user->id, $data->getAttributeValue('user_id'));
     }
 }
