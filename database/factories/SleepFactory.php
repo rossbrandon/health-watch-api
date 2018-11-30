@@ -27,7 +27,7 @@ $factory->define(App\Sleep::class, function (Faker $faker) {
         'quality_sleep' => '6:00',
         'deep_sleep' => '1:52',
         'heartrate' => '91',
-        'tags' => '😀😴🤧💩🏃‍♀️💊☕️🍷',
+        'tags' => '😀😴🤧💩🏃‍♀️💊☕️🍷👨‍👩‍👦‍👦',
         'notes' => ''
     ];
 });
