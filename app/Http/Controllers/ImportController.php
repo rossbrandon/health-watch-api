@@ -29,7 +29,7 @@ class ImportController extends Controller
             $file = request()->file('csv_file');
             Excel::import(new SleepImport, $file);
         } catch (\Exception $e) {
-            return view('error');
+            return view('error', ['error' => $e->getMessage()]);
         }
 
         return view('success');

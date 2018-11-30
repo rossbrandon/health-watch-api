@@ -6,7 +6,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">CSV Import</div>
-                    <div class="card-body text-success">Error {{ $e->getCode() }} - {{ $e->getMessage() }}</div>
+                    <div class="card-body text-success">Error {{ $error }}</div>
                 </div>
             </div>
         </div>

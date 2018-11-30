@@ -9,6 +9,7 @@ use Tests\TestCase;
 use App\User;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Http\UploadedFile;
 
 class ImportTest extends TestCase
 {
@@ -48,7 +49,6 @@ class ImportTest extends TestCase
         Excel::fake();
 
         $file = Storage::disk('public')->get('test_autosleep.csv');
-        //$file = UploadedFile::fake()->create('test_sleep.csv', 64);
         $response = $this->actingAs($this->user)->post(
             '/import_parse',
             array(
@@ -59,6 +59,30 @@ class ImportTest extends TestCase
         );
 
         $response->assertViewIs('success');
+    }
+
+    /**
+     * Test import parser
+     *
+     * @return void
+     */
+    public function testParseImportError()
+    {
+        Session::start();
+        $this->withoutMiddleware();
+        Excel::fake();
+
+        $file = UploadedFile::fake()->create('test_sleep.csv', 64);
+        $response = $this->actingAs($this->user)->post(
+            '/import_parse',
+            array(
+                '_token' => csrf_token(),
+                'csv_file' => $file,
+                'header' => true
+            )
+        );
+
+        $response->assertViewIs('error');
     }
 
     /**
@@ -86,5 +110,4 @@ class ImportTest extends TestCase
         $data = $sleep->model($row);
         $this->assertEquals($this->user->id, $data->getAttributeValue('user_id'));
     }
-
 }

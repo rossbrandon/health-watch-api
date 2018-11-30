@@ -29,9 +29,10 @@ class AuthRouteTest extends TestCase
     public function testLogin()
     {
         $user = factory(User::class)->states('user')->create();
+        $this->withoutMiddleware();
 
         $response = $this->actingAs($user)->post('login');
         $this->assertAuthenticated();
-        $response->assertRedirect('/home');
+        $response->assertRedirect('/');
     }
 }
