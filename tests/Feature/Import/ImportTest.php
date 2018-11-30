@@ -2,14 +2,15 @@
 
 namespace Tests\Feature\Import;
 
+use App\User;
+use App\Sleep;
 use App\Imports\SleepImport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Support\Facades\Session;
-use Tests\TestCase;
-use App\User;
 use Illuminate\Support\Facades\Storage;
-use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\UploadedFile;
+use Tests\TestCase;
 
 class ImportTest extends TestCase
 {
@@ -93,21 +94,9 @@ class ImportTest extends TestCase
     public function testSleepImportModel()
     {
         $this->actingAs($this->user);
-        $row = [
-            'in_bed_at' => '2018-10-21 01:46:00',
-            'until' => '2018-10-21 12:29:00',
-            'duration' => '10:43',
-            'asleep' => '8:53',
-            'time_awake_in_bed' => '1:50',
-            'fell_asleep_in' => '--',
-            'quality_sleep' => '6:00',
-            'deep_sleep' => '1:52',
-            'heartrate' => '91',
-            'tags' => '🍷',
-            'notes' => ''
-        ];
-        $sleep = new SleepImport();
-        $data = $sleep->model($row);
+        $sleep = factory(Sleep::class)->create();
+        $sleepImport = new SleepImport();
+        $data = $sleepImport->model($sleep->getAttributes());
         $this->assertEquals($this->user->id, $data->getAttributeValue('user_id'));
     }
 }
