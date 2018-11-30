@@ -7,7 +7,8 @@
                 <div class="card">
                     <div class="card-header">An Error Occurred</div>
                     <div class="card-body">
-                        <p class="text-danger">{{ $error }}</p>
+                        <p class="text-danger">Error Code: {{ $error['code'] }}</p>
+                        <p class="text-danger">Error Message: {{ $error['message'] }}</p>
                     </div>
                 </div>
             </div>

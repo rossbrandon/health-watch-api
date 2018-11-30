@@ -38,6 +38,8 @@ class Sleep extends Model
 
     /**
      * Set composite key for saving data
+     *
+     * @return Builder
      */
     protected function setKeysForSaveQuery(Builder $query)
     {

@@ -26,12 +26,17 @@ class ImportController extends Controller
      */
     public function parseImport()
     {
-        try{
+        try {
             $file = request()->file('csv_file');
             Excel::import(new SleepImport, $file);
         } catch (\Exception $e) {
             report($e);
-            return view('error', ['error' => $e->getMessage()]);
+            $error = [
+                'code' => $e->getCode(),
+                'message' => $e->getMessage(),
+                'stack' => $e->getTraceAsString()
+            ];
+            return view('error', ['error' => $error]);
         }
 
         return view('success');
