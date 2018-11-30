@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Emoji;
 
 class Sleep extends Model
 {
@@ -112,20 +113,35 @@ class Sleep extends Model
      */
     private function getConvertedTag($value)
     {
-        $elements = explode('♀️', $value);
-        $count = count($elements);
+        $emojis = Emoji\detect_emoji($value);
+        $count = count($emojis);
         $convertedTag = '';
 
-        foreach ($elements as $element) {
-            switch ($element) {
-                case "🍷":
+        foreach ($emojis as $emoji) {
+            switch ($emoji['short_name']) {
+                case "coffee‍":
+                    $convertedTag .= 'Drank Coffee';
+                    break;
+                case "wine_glass":
                     $convertedTag .= 'Drank Alcohol';
                     break;
-                case "💊":
+                case "pill":
                     $convertedTag .= 'Took Sleep Aid';
                     break;
-                case "🏃‍":
+                case "woman-running‍":
                     $convertedTag .= 'Worked Out';
+                    break;
+                case "grinning":
+                    $convertedTag .= 'Good Day';
+                    break;
+                case "hankey":
+                    $convertedTag .= 'Bad Day';
+                    break;
+                case "sleeping‍":
+                    $convertedTag .= 'Tired';
+                    break;
+                case "sneezing_face‍":
+                    $convertedTag .= 'Sick Day';
                     break;
                 default:
                     $convertedTag .= '';
