@@ -17,7 +17,12 @@ class SleepImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        $sleep = new Sleep();
+        $existingSleep = Sleep::where('user_id', Auth::id())
+            ->where('in_bed_at', $row['in_bed_at'])
+            ->get()
+            ->first();
+
+        $sleep = $existingSleep ? $existingSleep: new Sleep();
         $sleep['user_id'] = Auth::id();
         $sleep['in_bed_at'] = $sleep->validate('in_bed_at', $row['in_bed_at']);
         $sleep['until'] = $sleep->validate('until', $row['until']);
@@ -30,6 +35,7 @@ class SleepImport implements ToModel, WithHeadingRow
         $sleep['heartrate'] = $sleep->validate('heartrate', $row['heartrate']);
         $sleep['tags'] = $sleep->validate('tags', $row['tags']);
         $sleep['notes'] = $sleep->validate('notes', $row['notes']);
+        $sleep->save();
         return $sleep;
     }
 }

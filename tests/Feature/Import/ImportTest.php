@@ -87,7 +87,7 @@ class ImportTest extends TestCase
     }
 
     /**
-     * Test Sleep Import
+     * Test Sleep import
      *
      * @return void
      */
@@ -98,5 +98,24 @@ class ImportTest extends TestCase
         $sleepImport = new SleepImport();
         $data = $sleepImport->model($sleep->getAttributes());
         $this->assertEquals($sleep->user->id, $data->getAttributeValue('user_id'));
+    }
+
+    /**
+     * Test Sleep import update
+     *
+     * @return void
+     */
+    public function testSleepImportModelUpdate()
+    {
+        $originalSleep = factory(Sleep::class)->create();
+        $sleep = Sleep::where('user_id', $originalSleep->user->id)
+            ->where('in_bed_at', '2018-10-21 01:46:00')
+            ->get()
+            ->first();
+        $sleep['asleep'] = '23:00:00';
+        $this->actingAs($sleep->user);
+        $sleepImport = new SleepImport();
+        $sleepImport->model($sleep->getAttributes());
+        $this->assertDatabaseHas('sleep', ['asleep' => '23:00:00']);
     }
 }

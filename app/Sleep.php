@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Emoji;
 
@@ -24,9 +25,25 @@ class Sleep extends Model
         'notes'
     ];
 
+    /**
+     * Foreign key for User object
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    /**
+     * Set composite key for saving data
+     */
+    protected function setKeysForSaveQuery(Builder $query)
+    {
+        $query->where('user_id', '=', $this->getAttribute('user_id'));
+        $query->where('in_bed_at', '=', $this->getAttribute('in_bed_at'));
+        return $query;
     }
 
     /**

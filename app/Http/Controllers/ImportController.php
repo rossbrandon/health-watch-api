@@ -22,6 +22,7 @@ class ImportController extends Controller
      * Parse the CSV import
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Exception
      */
     public function parseImport()
     {
@@ -29,6 +30,7 @@ class ImportController extends Controller
             $file = request()->file('csv_file');
             Excel::import(new SleepImport, $file);
         } catch (\Exception $e) {
+            report($e);
             return view('error', ['error' => $e->getMessage()]);
         }
 
