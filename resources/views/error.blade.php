@@ -1,15 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="container preview">
         <div class="row justify-content-center">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">CSV Import</div>
-
-                    <div class="card-body">
-                        Data imported successfully.
-                    </div>
+                    <div class="card-body text-success">Error {{ $e->getCode() }} - {{ $e->getMessage() }}</div>
                 </div>
             </div>
         </div>
